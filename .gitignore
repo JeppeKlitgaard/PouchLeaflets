@@ -1,0 +1,6 @@
+
+*.pdf
+
+# Files with .private. extension are not added to git.
+# Use these for sensitive information such as prescription medicine.
+*.private.*
