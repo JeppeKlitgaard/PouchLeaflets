@@ -1,10 +1,21 @@
-#import "Base.typ": stroke-regular, stroke-fat, stroke-cut, inset-size-table, inset-size-back, id-text, id-col
+#import "Base.typ": (
+  stroke-regular,
+  stroke-fat,
+  stroke-cut,
+  inset-size-table,
+  inset-size-back,
+  inset-size-back-top,
+  back-row-gutter,
+  id-text,
+  id-col,
+)
 #import "65x100_AntiStaticBag_Base.typ": leaflet-width, leaflet-height, instructions-default-nofold, layout_duplex_page
 
 /// Default content
 #let make-back(leaflet-id) = grid(
   rows: (auto, 1fr, auto),
-  row-gutter: 10mm,
+  columns: (1fr,),
+  row-gutter: back-row-gutter,
   align(
     left,
     [
@@ -193,7 +204,7 @@
   let back-box = box(
       width: leaflet-width,
       height: leaflet-height,
-      inset: inset-size-back,
+      inset: (y: inset-size-back, left: inset-size-back, right: inset-size-back-top),
       rotate(90deg, back, reflow: true),
     )
 

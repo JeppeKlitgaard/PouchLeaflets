@@ -1,6 +1,16 @@
 #let inset-size = 1mm
-#let inset-size-back = 3mm
+#let inset-size-back = 5mm
+#let inset-size-back-top = 7.5mm
 #let inset-size-table = 1mm
+
+#let front-size = 9pt
+#let front-instructions-size = 8pt
+
+#let back-size = 10pt
+#let back-instructions-size = 9pt
+#let back-instructions-leading = 0.45em
+#let back-instructions-spacing = 0.8em
+#let back-row-gutter = 1cm
 
 #let id-col = 6.5mm
 #let id-size = 10pt

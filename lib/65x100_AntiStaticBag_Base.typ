@@ -1,7 +1,7 @@
 #import "Base.typ": stroke-regular, stroke-fat, stroke-cut, stroke-fold, stroke-spacer, inset-size, inset-size-back
 
 #let leaflet-width = 93mm
-#let leaflet-height = 62mm
+#let leaflet-height = 60mm
 #let leaflet-width-inner = leaflet-width - 3mm
 
 /// Spacers

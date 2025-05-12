@@ -3,7 +3,7 @@
   make-3-fold-table-with-back,
   column-specs-medicine,
   entries-medicine-base,
-  make-back3,
+  make-back3-information,
 )
 #show: setup
 
@@ -21,6 +21,6 @@
 #make-3-fold-table-with-back(
   column-specs-medicine,
   entries,
-  back3: make-back3("FirstAid"),
+  back3-information: make-back3-information("FirstAid"),
   // debug: true,
 )

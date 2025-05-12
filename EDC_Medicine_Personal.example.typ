@@ -3,7 +3,7 @@
   make-3-fold-table-with-back,
   column-specs-medicine,
   entries-medicine-base,
-  make-back3,
+  make-back3-information,
 )
 #show: setup
 
@@ -27,6 +27,7 @@
     maximum_daily_dose: "",
     quantity: 2,
     instructions: "",
+    additional_information: none,
   )
 
   entries.Y = (
@@ -39,12 +40,13 @@
     maximum_daily_dose: "",
     quantity: 2,
     instructions: "",
+    additional_information: none,
   )
 }
 
 #make-3-fold-table-with-back(
   column-specs-medicine,
   entries,
-  back3: make-back3("EDC_Medicine/Personal"),
+  back3-information: make-back3-information("EDC_Medicine/Personal"),
   // debug: true,
 )

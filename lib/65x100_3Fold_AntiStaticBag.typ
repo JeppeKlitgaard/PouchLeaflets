@@ -1,4 +1,21 @@
-#import "Base.typ": stroke-regular, stroke-fat, stroke-cut, stroke-fold, inset-size-table, inset-size-back, id-col, id-text
+#import "Base.typ": (
+  stroke-regular,
+  stroke-fat,
+  stroke-cut,
+  stroke-fold,
+  inset-size-table,
+  inset-size-back,
+  inset-size-back-top,
+  front-size,
+  front-instructions-size,
+  back-size,
+  back-instructions-size,
+  back-instructions-leading,
+  back-instructions-spacing,
+  back-row-gutter,
+  id-col,
+  id-text,
+)
 #import "65x100_AntiStaticBag_Base.typ": (
   leaflet-width,
   leaflet-width-inner,
@@ -26,13 +43,40 @@
   left,
   [
     === Instructions
-    Using a small permanent marker, mark pills according to their `ID` in the table.
+    Using a small permanent marker, mark pills according to the table.
 
-    Give them a numeric `Exp. ID` (`1`, `2`, ...), which you also
-    write on the pills.
+    Give them a numeric `Exp. ID`.
 
     Fill in one of the _Expiry_ column pairs in the inner fold. Write the expiry
-    date of the medicine in the `Expiry` columns in a `YYYY-MM` (ISO-8601) format.
+    date in the `Expiry` columns in a `YYYY-MM` (ISO-8601) format.
+
+    Example: Paracetamol, 500 mg (`A`) with expiry date `2030-01` would be marked `A1`
+    on the pill. The first expiry columns would be filled:\
+    #align(
+      center,
+      table(
+        inset: inset-size-table,
+        stroke: none,
+        columns: (id-col, exp-id-col, expiry-col),
+        align: (center, center, center),
+        table.header(
+          table.vline(stroke: none),
+          strong("ID"),
+          table.vline(stroke: stroke-fat),
+          strong("Exp. ID"),
+          table.vline(stroke: stroke-regular),
+          strong("Expiry"),
+          table.vline(stroke: stroke-fat),
+        ),
+        table.hline(stroke: stroke-fat),
+
+        table.vline(stroke: stroke-fat),
+        id-text("A"),
+        `A1`, // Expiry ID 1
+        `2030-01`, // Expiry 1
+        table.hline(stroke: stroke-regular),
+      ),
+    )
 
     Discard expired medicine.
   ],
@@ -62,24 +106,19 @@
   ],
 )
 
-#let make-back3(leaflet-id) = grid(
-  rows: (auto, 1fr),
-  align(
-    left,
-    [
-      === Information
-      Leaflet ID: #raw(leaflet-id).
-    ],
-  ),
-  align(
-    bottom + center,
-    [*Made by _Jeppe Klitgaard_*],
-  ),
+#let back3-top-default = [
+  === Additional Content
+  - 2 × Bandages
+]
+#let back3-bottom-default = align(
+  bottom + center,
+  [*Made by _Jeppe Klitgaard_*],
 )
-
-}
-
-#let back3-default = make-back3("Not specified")
+#let make-back3-information(leaflet-id) = [
+    === Information
+    Leaflet ID: #raw(leaflet-id)
+]
+#let back3-information-default = make-back3-information("Not specified")
 
 /// Medicine Column Spec
 #let column-specs-medicine = (
@@ -94,7 +133,7 @@
     align: left,
   ),
   name: (
-    text: "Name",
+    text: "Name/Compound",
     width: auto,
     align: left,
   ),
@@ -202,6 +241,7 @@
     maximum_daily_dose: "4000 mg",
     quantity: 4,
     instructions: "",
+    additional_information: none,
   ),
   "B": (
     id: "B",
@@ -213,6 +253,7 @@
     maximum_daily_dose: "1200 mg",
     quantity: 4,
     instructions: "",
+    additional_information: none,
   ),
   "C": (
     id: "C",
@@ -224,28 +265,34 @@
     maximum_daily_dose: "16 mg",
     quantity: 4,
     instructions: "4 mg, then 2 mg / loose stool",
+    additional_information: none,
   ),
   "D": (
     id: "D",
     effect: "Antacid",
-    name: "Balancid Novum",
-    tablet_dose: "",
+    name: "Calcium Carbonate",
+    tablet_dose: "500 mg",
     typical_dose: "1-2 tablets",
     minimum_interval: "",
     maximum_daily_dose: "",
     quantity: 2,
-    instructions: "Chew, after meal",
+    instructions: "Chew thoroughly. Take after meal",
+    additional_information: [
+      May be replaced with products with similar salts as active ingredients.
+      For example Balancid Novum (449 mg $"CaCO"_3$, 104mg $"Mg"("OH")_2$
+    ],
   ),
   "E": (
     id: "E",
     effect: "Anti-Hist.",
-    name: "Alnok",
+    name: "Cetirizine",
     tablet_dose: "10 mg",
     typical_dose: "10 mg",
-    minimum_interval: "",
-    maximum_daily_dose: "",
+    minimum_interval: "1 d",
+    maximum_daily_dose: "10 mg",
     quantity: 2,
-    instructions: "Chew, after meal",
+    instructions: "",
+    additional_information: none,
   ),
   "F": (
     id: "F",
@@ -257,10 +304,11 @@
     maximum_daily_dose: "12 loze.",
     quantity: 2,
     instructions: "Suck slowly",
+    additional_information: none,
   ),
   "G": (
     id: "G",
-    effect: "Motion Sick.",
+    effect: "Nausea/Travel",
     name: "Cyclizine",
     tablet_dose: "50 mg",
     typical_dose: "50 mg",
@@ -268,17 +316,31 @@
     maximum_daily_dose: "150 mg",
     quantity: 4,
     instructions: "Take 1-2 hours before travel",
+    additional_information: none,
   ),
   "H": (
     id: "H",
-    effect: "",
-    name: "",
-    tablet_dose: "",
-    typical_dose: "",
+    effect: "Laxative",
+    name: "Magnesium Oxide",
+    tablet_dose: "500 mg",
+    typical_dose: "1.0-1.5 g",
     minimum_interval: "",
-    maximum_daily_dose: "",
-    quantity: "",
-    instructions: "",
+    maximum_daily_dose: "2000 mg",
+    quantity: "3",
+    instructions: "At bedtime. Effect in 6-8 hours",
+    additional_information: none,
+  ),
+  "H2": (
+    id: "H",
+    effect: "Antacid",
+    name: "Magnesium Oxide",
+    tablet_dose: "500 mg",
+    typical_dose: "0.5-1.0 g",
+    minimum_interval: "",
+    maximum_daily_dose: "2000 mg",
+    quantity: "3",
+    instructions: [Prefer `D` ($"CaCO"_3$). Effect in 1 hour],
+    additional_information: none,
   ),
   "I": (
     id: "I",
@@ -290,17 +352,7 @@
     maximum_daily_dose: "",
     quantity: "",
     instructions: "",
-  ),
-  "J": (
-    id: "J",
-    effect: "",
-    name: "",
-    tablet_dose: "",
-    typical_dose: "",
-    minimum_interval: "",
-    maximum_daily_dose: "",
-    quantity: "",
-    instructions: "",
+    additional_information: none,
   ),
   /// Prescription
   "X": (
@@ -313,6 +365,7 @@
     maximum_daily_dose: "",
     quantity: "",
     instructions: "",
+    additional_information: none,
   ),
   "Y": (
     id: "Y",
@@ -324,6 +377,7 @@
     maximum_daily_dose: "",
     quantity: "",
     instructions: "",
+    additional_information: none,
   ),
   "Z": (
     id: "Z",
@@ -335,6 +389,7 @@
     maximum_daily_dose: "",
     quantity: "",
     instructions: "",
+    additional_information: none,
   ),
 )
 
@@ -343,38 +398,47 @@
   entries,
   back1: back1-default,
   back2: back2-default,
-  back3: back3-default,
+  back3-top: back3-top-default,
+  back3-bottom: back3-bottom-default,
+  back3-information: back3-information-default,
   instructions: instructions-default-fold,
   debug: false,
 ) = {
   let num-cols = column-specs.len()
   let num-rows = entries.len()
 
-  let this-table = table(
-    columns: column-specs.values().map(c => c.width),
-    align: column-specs.values().map(c => c.align),
-    stroke: stroke-regular,
-    inset: inset-size-table,
+  let additional-instructions-counter = counter("additional-instructions")
+  additional-instructions-counter.update(0)
+  let additional-instructions-array = ()
 
-    table.vline(stroke: none),
-    table.hline(stroke: none),
-
-    table.header(..column-specs.values().map(c => strong(c.text)).flatten()),
-    table.hline(stroke: stroke-fat),
-
-    ..entries
+  // Front
+  let (this-table-cells, additional-instructions-array) = array.zip(..entries
       .values()
       .enumerate()
       .map(x => {
         let i = x.at(0)
         let e = x.at(1)
 
+        let additional-instructions-entry = none
+        let name-content = emph(e.name)
+
+        if e.additional_information != none {
+          let step = additional-instructions-counter.step()
+          let asterisks = context {return "*" * additional-instructions-counter.get().at(0)}
+
+          additional-instructions-entry = (
+            asterisks: asterisks,
+            entry: e,
+          )
+          name-content += step + asterisks
+        }
+
         let cells = (
           table.vline(stroke: none),
           id-text(e.id),
           table.vline(stroke: stroke-fat),
           e.effect,
-          emph(e.name),
+          name-content,
           e.tablet_dose,
           e.typical_dose,
           table.vline(stroke: none),
@@ -419,10 +483,22 @@
           "", // Empty
         ))
 
+        return (cells, additional-instructions-entry)
+    }))
 
-        return cells
-      })
-      .flatten(),
+  let this-table = table(
+    columns: column-specs.values().map(c => c.width),
+    align: column-specs.values().map(c => c.align),
+    stroke: stroke-regular,
+    inset: inset-size-table,
+
+    table.vline(stroke: none),
+    table.hline(stroke: none),
+
+    table.header(..column-specs.values().map(c => strong(c.text)).flatten()),
+    table.hline(stroke: stroke-fat),
+
+    ..this-table-cells.flatten(),
 
     table.vline(stroke: none),
     table.hline(stroke: none),
@@ -450,13 +526,37 @@
 
   let front-box = box(
     height: leaflet-height,
-    this-table-box,
+    text(size: front-size, this-table-box),
+  )
+
+  // Back
+  let back3-top-additional = [=== Additional Instructions]
+  back3-top-additional += additional-instructions-array.filter(x => x != none).map(x => {
+    let start = [*#x.entry.id* | #emph(x.entry.name)#x.asterisks: ]
+    let end = text(size: back-instructions-size, x.entry.additional_information)
+    return par(
+      leading: back-instructions-leading,
+      spacing: back-instructions-spacing,
+      start + end
+    )
+  }).join()
+
+  let back3 = grid(
+    rows: (auto, 1fr, auto),
+    columns: (1fr,),
+    row-gutter: back-row-gutter,
+    align(left, back3-top + back3-top-additional),
+    align(bottom + left, back3-information),
+    align(
+      bottom + center,
+      [*Made by _Jeppe Klitgaard_*],
+    )
   )
 
   let back-box = box(
     width: total-width,
     height: leaflet-height,
-    grid(
+    text(back-size, grid(
       columns: (leaflet-width, leaflet-width, leaflet-width-inner),
       rows: (leaflet-height,) * 1,
       stroke: if debug {
@@ -475,11 +575,13 @@
           return s
         }
       } else { none },
-      inset: inset-size-back,
+      inset: (y: inset-size-back, left: inset-size-back, right: inset-size-back-top),
       align: (right, right, right),
-      rotate(90deg, back3, reflow: true), rotate(90deg, back2, reflow: true), rotate(90deg, back1, reflow: true),
+      rotate(90deg, back3, reflow: true),
+      rotate(90deg, back2, reflow: true),
+      rotate(90deg, back1, reflow: true),
     ),
-  )
+  ))
 
   instructions = [
     #v(10mm)
