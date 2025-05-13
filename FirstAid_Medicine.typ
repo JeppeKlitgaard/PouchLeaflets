@@ -16,11 +16,13 @@
   entries.E.quantity = 2
   entries.F.quantity = 0
   entries.G.quantity = 0
+  entries.H.quantity = 0
 }
 
 #make-3-fold-table-with-back(
   column-specs-medicine,
   entries,
   back3-information: make-back3-information("FirstAid"),
+  back3-top: [],
   // debug: true,
 )
