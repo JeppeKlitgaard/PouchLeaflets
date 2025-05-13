@@ -1,6 +1,6 @@
 #let inset-size = 1mm
 #let inset-size-back = 5mm
-#let inset-size-back-top = 7.5mm
+#let inset-size-back-top = 6mm
 #let inset-size-table = 1mm
 
 #let front-size = 9pt

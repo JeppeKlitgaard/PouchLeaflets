@@ -44,14 +44,13 @@
   [
     === Instructions
     Using a small permanent marker, mark pills according to the table.
-
     Give them a numeric `Exp. ID`.
 
     Fill in one of the _Expiry_ column pairs in the inner fold. Write the expiry
-    date in the `Expiry` columns in a `YYYY-MM` (ISO-8601) format.
+    date in `YYYY-MM` format.
 
-    Example: Paracetamol, 500 mg (`A`) with expiry date `2030-01` would be marked `A1`
-    on the pill. The first expiry columns would be filled:\
+    Example: Paracetamol, 500 mg (`A`) with expiry `2030-01` would be marked '`A1`'
+    on the pill. Expiry columns would be filled as:\
     #align(
       center,
       table(
@@ -78,7 +77,8 @@
       ),
     )
 
-    Discard expired medicine.
+    // https://www.health.harvard.edu/staying-healthy/is-it-ok-to-use-medications-past-their-expiration-dates
+    Expired medicine may still be usable, but consult online first.
   ],
 )
 
@@ -109,6 +109,7 @@
 #let back3-top-default = [
   === Additional Content
   - 2 × Bandages
+  - 1 × Antiseptic Alcohol Swab
 ]
 #let back3-bottom-default = align(
   bottom + center,
@@ -314,36 +315,36 @@
     typical_dose: "50 mg",
     minimum_interval: "8 h",
     maximum_daily_dose: "150 mg",
-    quantity: 4,
+    quantity: 2,
     instructions: "Take 1-2 hours before travel",
     additional_information: none,
   ),
   "H": (
     id: "H",
     effect: "Laxative",
-    name: "Magnesium Oxide",
-    tablet_dose: "500 mg",
-    typical_dose: "1.0-1.5 g",
-    minimum_interval: "",
-    maximum_daily_dose: "2000 mg",
-    quantity: "3",
-    instructions: "At bedtime. Effect in 6-8 hours",
-    additional_information: none,
-  ),
-  "H2": (
-    id: "H",
-    effect: "Antacid",
-    name: "Magnesium Oxide",
-    tablet_dose: "500 mg",
-    typical_dose: "0.5-1.0 g",
-    minimum_interval: "",
-    maximum_daily_dose: "2000 mg",
-    quantity: "3",
-    instructions: [Prefer `D` ($"CaCO"_3$). Effect in 1 hour],
+    name: "Bisacodyl",
+    tablet_dose: "5 mg",
+    typical_dose: "5-10 mg",
+    minimum_interval: "1 d",
+    maximum_daily_dose: "10 mg",
+    quantity: "4",
+    instructions: "At bedtime. Effect in 6-12 hours",
     additional_information: none,
   ),
   "I": (
     id: "I",
+    effect: "",
+    name: "",
+    tablet_dose: "",
+    typical_dose: "",
+    minimum_interval: "",
+    maximum_daily_dose: "",
+    quantity: "",
+    instructions: "",
+    additional_information: none,
+  ),
+  "J": (
+    id: "J",
     effect: "",
     name: "",
     tablet_dose: "",
