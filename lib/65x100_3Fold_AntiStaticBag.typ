@@ -140,13 +140,18 @@
   ),
   tablet_dose: (
     text: "Tab. Dose",
-    width: 18mm,
+    width: 16mm,
     align: right,
   ),
   typical_dose: (
     text: "Typ. Dose",
     width: 18mm,
     align: right,
+  ),
+  fold_instructions_1: (
+    text: "",
+    width: auto,
+    align: center,
   ),
   midspace1_1: (
     text: "",
@@ -183,7 +188,7 @@
     width: 1fr,
     align: left,
   ),
-  fold_instructions: (
+  fold_instructions_2: (
     text: "",
     width: auto,
     align: center,
@@ -434,7 +439,8 @@
           name-content += step + asterisks
         }
 
-        let cells = (
+        let cells = ()
+        cells.push((
           table.vline(stroke: none),
           id-text(e.id),
           table.vline(stroke: stroke-fat),
@@ -442,6 +448,21 @@
           name-content,
           e.tablet_dose,
           e.typical_dose,
+        ))
+
+        if i == 0 {
+          let instructions = "↓ Information On Back ↓"
+          instructions = text(size: 8pt, weight: "bold", instructions)
+          instructions = rotate(-90deg, reflow: true, instructions)
+          instructions = align(
+            horizon,
+            instructions,
+          )
+
+          cells.push(table.cell(rowspan: num-rows, instructions))
+        }
+
+        cells.push((
           table.vline(stroke: none),
           midspace-cell,
           table.vline(stroke: stroke-fold),
@@ -453,7 +474,8 @@
           e.maximum_daily_dose,
           [#e.quantity],
           text(8pt, e.instructions),
-        )
+        ))
+
 
         if i == 0 {
           let instructions = "↓ Information Inside ↓"
@@ -506,17 +528,17 @@
 
     table.cell(colspan: num-cols, v(row-spacer-height), stroke: none),
 
-    table.cell(colspan: 6, inset: (x: 0mm), stroke: none, "Spacer 1"),
+    table.cell(colspan: 7, inset: (x: 0mm), stroke: none, "Spacer 1"),
     table.cell(colspan: 8, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer),
-    table.cell(colspan: num-cols - 8 - 6, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer-inner),
+    table.cell(colspan: num-cols - 8 - 7, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer-inner),
 
-    table.cell(colspan: 6, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer),
+    table.cell(colspan: 7, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer),
     table.cell(colspan: 8, inset: (x: 0mm), stroke: none, "Spacer 2"),
-    table.cell(colspan: num-cols - 8 - 6, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer-inner),
+    table.cell(colspan: num-cols - 8 - 7, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer-inner),
 
-    table.cell(colspan: 6, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer),
+    table.cell(colspan: 7, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer),
     table.cell(colspan: 8, inset: (x: 0mm), stroke: none, leaflet-horizontal-spacer),
-    table.cell(colspan: num-cols - 8 - 6, inset: (x: 0mm), stroke: none, "Spacer 3"),
+    table.cell(colspan: num-cols - 8 - 7, inset: (x: 0mm), stroke: none, "Spacer 3"),
   )
 
   let this-table-box = box(

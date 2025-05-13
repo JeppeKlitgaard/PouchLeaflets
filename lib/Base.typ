@@ -12,7 +12,7 @@
 #let back-instructions-spacing = 0.8em
 #let back-row-gutter = 1cm
 
-#let id-col = 6.5mm
+#let id-col = 6mm
 #let id-size = 10pt
 #let id-text(s) = text(size: id-size, weight: "bold", s)
 
