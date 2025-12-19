@@ -308,7 +308,7 @@
     typical_dose: "1 lozenge",
     minimum_interval: "2-3 h",
     maximum_daily_dose: "12 loze.",
-    quantity: 2,
+    quantity: 0,
     instructions: "Suck slowly",
     additional_information: none,
   ),
